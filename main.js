@@ -1,30 +1,25 @@
 let randomNumber = null;
 let guess = null;
-let wins = 0;
 let offset = 0;
 let max = 100;
 let min = 1;
 
 function setRandomNumber() {
   randomNumber = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(randomNumber)
-}
-
-function setOffset() {
-  offset = wins * 10
 }
 
 function adjustRange() {
   min = min - offset
   max = max + offset
-  $('#offset-notification').text(`You Won! New Range: ${min} - ${max}`);
+  $('#offset-notification').text(`You Won! New Range: ${min} to ${max}`);
 }
 
 function checkGuess() {
   $('#guess-output').text(guess);
+  $('#last-guess').text("Your Last Guess Was");
   if (guess === randomNumber) {
     hint = 'BOOM!'
-    wins++
+    offset = offset + 10
    $('#hint').text(hint);
     $('#play-again-container').slideDown('slow')
   }
@@ -40,20 +35,22 @@ function checkGuess() {
 
 function checkValidGuess() {
   if (isNaN(guess) || guess < min || guess > max) {
-    $('#guess-output').text('Invalid Guess');
+    $('#guess-input').attr('placeholder', 'Invalid Guess');
+    $('.input').addClass('input-fail')
   }
   else {
     checkGuess()
   }
 }
-
-function playAgain() {
+function clearFields() {
   $('#guess-input').val('');
   $('#guess-output').text('');
-  $('#lower-limit').val('');
-  $('#upper-limit').val('');
   $('#hint').text('');
-  setOffset()
+  $('#last-guess').text('');
+}
+
+function playAgain() {
+  clearFields()
   adjustRange()
   setRandomNumber()
   fillRange()
@@ -65,6 +62,10 @@ function fillRange() {
   $('#upper-limit').val(max);
 }
 
+function invalidGuess() {
+  $('#guess-input').addClass('input-fail')
+}
+
 $(document).ready(() => {
   fillRange()
 
@@ -74,20 +75,16 @@ $(document).ready(() => {
     setRandomNumber()
     $('#start-container').slideUp('fast')
     $('#game-container').slideDown('fast')
-    $('#offset-notification').text(`Range: ${min} - ${max}`);
+    $('#offset-notification').text(`Range: ${min} to ${max}`);
+    $('#guess-input').attr('min', min)
+    $('#guess-input').attr('max', max)
   });
 
   $('#submit-guess').on('click', () => {
     guess = parseInt($('#guess-input').val(), 10);
-    $('#notification-text').text("Your Last Guess Was");
+
     $('#guess-input').val('');
     checkValidGuess()
-  });
-
-
-  $('#clear-guess').on('click', () => {
-    $('#guess-input').val('');
-    $('#guess-output').text(`Your Last Guess: ${guess}`);
   });
 
   $('#play-again').on('click', () => {

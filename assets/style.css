@@ -61,7 +61,12 @@ body {
   background-color: #fafafa;
   text-align: center;
   font-size: 1.3em;
-  color: #d0d2d3;
+  color: #929497;
+}
+
+.input-fail {
+  border: 2px solid red;
+  color: red;
 }
 
 #lower-limit {
@@ -81,6 +86,7 @@ body {
   width: 10vw;
   border: 1px solid #929497;
   border-radius: 5px;
+  font-size: 1.1em;
 }
 
 .active-button {
@@ -90,6 +96,7 @@ body {
   width: 10vw;
   border: 1px solid #eb008b;
   border-radius: 5px;
+  font-size: 1.1em;
 }
 
 .notification-text {
@@ -111,4 +118,8 @@ body {
 #guess-output {
   color: #eb008b;
   font-size: 18em;
+}
+
+#input-notification {
+  display: inline;
 }
