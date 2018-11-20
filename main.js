@@ -122,6 +122,16 @@ $(document).ready(() => {
     checkValidGuess()
   });
 
+  // Allows the user to press enter
+  $("#guess-input").keyup(function(event) {
+
+    // checks if it was the enter key pressed
+    if (event.keyCode === 13) {
+      // triggers the click event
+        $("#submit-guess").click();
+    }
+  });
+
   // waits for the play again click
   $('#play-again').on('click', () => {
     // runs the play again method
