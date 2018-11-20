@@ -87,6 +87,12 @@ $(document).ready(() => {
     checkValidGuess()
   });
 
+  $("#guess-input").keyup(function(event) {
+    if (event.keyCode === 13) {
+        $("#submit-guess").click();
+    }
+  });
+
   $('#play-again').on('click', () => {
     playAgain()
   });
